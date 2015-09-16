@@ -19,3 +19,5 @@ with open('/Users/minsookim/Documents/whale_faces_smerity.json') as data_file:
 pprint(data)
 
 data[0]['annotations'][0]['class']
+
+
