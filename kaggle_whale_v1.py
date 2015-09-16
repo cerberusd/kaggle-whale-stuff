@@ -5,13 +5,15 @@ Created on Tue Sep  8 09:44:05 2015
 @author: minsookim
 """
 from glob import glob
-from PIL import Image, ImageChops
+from PIL import Image, ImageChops, ImageOps
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
     #thing=glob('/imgs_subset/w_%d.jpg' % (i))
 images=glob('/Users/minsookim/Downloads/kaggle whale/imgs_subset/w_*.jpg' )
+
+R_DIMS=(256,256)
 
 print images
 
@@ -46,10 +48,11 @@ load()
 def resize(image,resize_dims):
     """
     resize an image into a square via padded fit
+    using ImageOps.fit for now
     """
-    image.thumbnail()
     
-    
+    resized=ImageOps.fit(image,resize_dims,Image.ANTIALIAS)
+    return resized
     
     
 def convert():
@@ -63,7 +66,7 @@ def convert():
         width=int(data[114]['annotations'][0]['width'])
         height=int(data[114]['annotations'][0]['height'])
         cropped=im.crop((x,y,x+width,y+height))
-        cropped.show(0)
+        converted=resize(cropped,R_DIMS)
 convert()
 
 
